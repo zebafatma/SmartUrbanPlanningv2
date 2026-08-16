@@ -1,0 +1,887 @@
+.dashboard-page {
+  width: min(
+    var(--max-width),
+    calc(100% - 64px)
+  );
+
+  margin: 0 auto;
+
+  padding: 65px 0 110px;
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.dashboard-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 40px;
+
+  margin-bottom: 42px;
+}
+
+
+.dashboard-eyebrow {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 750;
+
+  letter-spacing: 1.4px;
+}
+
+
+.dashboard-header h1 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: clamp(
+    40px,
+    4.5vw,
+    58px
+  );
+
+  line-height: 1;
+
+  letter-spacing: -2.5px;
+}
+
+
+.dashboard-header p {
+  margin: 13px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+}
+
+
+.location-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 15px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: var(--surface);
+}
+
+
+.location-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+}
+
+
+.location-pill div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+
+.location-pill strong {
+  color: var(--text-primary);
+
+  font-size: 11px;
+}
+
+
+.location-pill span:not(.location-dot) {
+  color: var(--text-muted);
+
+  font-size: 9px;
+}
+
+
+/* ==========================================================
+   METRICS
+   ========================================================== */
+
+.dashboard-metrics {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 65px;
+}
+
+
+.metric-card {
+  min-height: 130px;
+
+  padding: 19px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+.metric-card > span {
+  display: block;
+
+  margin-bottom: 17px;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+.metric-card strong {
+  display: block;
+
+  color: var(--text-primary);
+
+  font-size: 27px;
+
+  letter-spacing: -0.8px;
+}
+
+
+.metric-card small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: var(--primary);
+
+  font-size: 9px;
+}
+
+
+/* ==========================================================
+   ERROR
+   ========================================================== */
+
+.dashboard-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 40px;
+
+  padding: 13px 15px;
+
+  border: 1px solid
+    rgba(182, 83, 83, 0.18);
+
+  border-radius: 10px;
+
+  background: #fbf3f3;
+}
+
+
+.dashboard-error > span {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: rgba(182, 83, 83, 0.1);
+
+  color: var(--danger);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+.dashboard-error div {
+  flex: 1;
+}
+
+
+.dashboard-error strong {
+  display: block;
+
+  color: var(--danger);
+
+  font-size: 10px;
+}
+
+
+.dashboard-error p {
+  margin: 3px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 9px;
+}
+
+
+.dashboard-error button {
+  padding: 7px 11px;
+
+  border: 1px solid
+    rgba(182, 83, 83, 0.2);
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: var(--danger);
+
+  font-size: 9px;
+}
+
+
+/* ==========================================================
+   SECTIONS
+   ========================================================== */
+
+.dashboard-section {
+  margin-bottom: 70px;
+}
+
+
+.dashboard-section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+
+  margin-bottom: 22px;
+}
+
+
+.section-number {
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 750;
+
+  letter-spacing: 1px;
+}
+
+
+.dashboard-section-heading h2 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 23px;
+
+  letter-spacing: -0.6px;
+}
+
+
+.dashboard-section-heading p {
+  margin: 4px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+}
+
+
+/* ==========================================================
+   LAND COVER
+   ========================================================== */
+
+.land-cover-dashboard {
+  display: grid;
+
+  grid-template-columns:
+    1.2fr 0.8fr;
+
+  gap: 18px;
+}
+
+
+.land-cover-main {
+  min-height: 270px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 35px;
+
+  padding: 28px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+.land-cover-visual {
+  flex-shrink: 0;
+}
+
+
+.coverage-ring {
+  width: 175px;
+  height: 175px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      var(--primary) 0 76%,
+      var(--primary-light) 76% 100%
+    );
+}
+
+
+.coverage-ring::before {
+  content: "";
+
+  position: absolute;
+}
+
+
+.coverage-ring > div {
+  width: 132px;
+  height: 132px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--surface);
+}
+
+
+.coverage-ring strong {
+  color: var(--text-primary);
+
+  font-size: 28px;
+
+  letter-spacing: -1px;
+}
+
+
+.coverage-ring span {
+  margin-top: 2px;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+}
+
+
+.land-cover-copy {
+  max-width: 310px;
+}
+
+
+.mini-label {
+  color: var(--primary);
+
+  font-size: 8px;
+  font-weight: 750;
+
+  letter-spacing: 1px;
+}
+
+
+.land-cover-copy h3 {
+  margin: 8px 0;
+
+  color: var(--text-primary);
+
+  font-size: 18px;
+}
+
+
+.land-cover-copy p {
+  margin: 0;
+
+  color: var(--text-secondary);
+
+  font-size: 11px;
+
+  line-height: 1.7;
+}
+
+
+/* ==========================================================
+   LAND COVER LIST
+   ========================================================== */
+
+.land-cover-list {
+  padding: 22px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+}
+
+
+.dashboard-land-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 0;
+
+  border-bottom:
+    1px solid var(--border-light);
+}
+
+
+.dashboard-land-row:first-child {
+  padding-top: 2px;
+}
+
+
+.dashboard-land-row:last-child {
+  padding-bottom: 2px;
+
+  border-bottom: 0;
+}
+
+
+.dashboard-land-name {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--text-secondary);
+
+  font-size: 10px;
+}
+
+
+.land-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+}
+
+
+.land-dot.background {
+  background: #a8b1ac;
+}
+
+
+.land-dot.road {
+  background: #65736c;
+}
+
+
+.land-dot.building {
+  background: #89968f;
+}
+
+
+.land-dot.vegetation {
+  background: var(--primary);
+}
+
+
+.land-dot.water {
+  background: var(--blue);
+}
+
+
+.dashboard-land-row strong {
+  color: var(--text-primary);
+
+  font-size: 11px;
+}
+
+
+/* ==========================================================
+   CONDITIONS
+   ========================================================== */
+
+.condition-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 12px;
+}
+
+
+.condition-card {
+  min-height: 145px;
+
+  padding: 18px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+.condition-card-top {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 23px;
+}
+
+
+.condition-card-top > span:first-child {
+  color: var(--text-muted);
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+.condition-indicator {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+}
+
+
+.condition-card strong {
+  display: block;
+
+  color: var(--text-primary);
+
+  font-size: 20px;
+}
+
+
+.condition-card small {
+  display: block;
+
+  margin-top: 6px;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+}
+
+
+.semantic-blue .condition-indicator {
+  background: var(--blue);
+}
+
+
+/* ==========================================================
+   AMENITIES
+   ========================================================== */
+
+.amenity-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 12px;
+}
+
+
+.amenity-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 16px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: var(--surface);
+}
+
+
+.amenity-icon {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 9px;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+
+  font-size: 14px;
+}
+
+
+.amenity-card div:last-child {
+  min-width: 0;
+}
+
+
+.amenity-card span {
+  display: block;
+
+  overflow: hidden;
+
+  color: var(--text-secondary);
+
+  font-size: 9px;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+
+.amenity-card strong {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--text-primary);
+
+  font-size: 17px;
+}
+
+
+.amenity-card small {
+  color: var(--text-muted);
+
+  font-size: 7px;
+}
+
+
+/* ==========================================================
+   EMPTY STATE
+   ========================================================== */
+
+.dashboard-empty {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 25px;
+
+  border: 1px dashed var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--background);
+}
+
+
+.empty-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+}
+
+
+.dashboard-empty h3 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 12px;
+}
+
+
+.dashboard-empty p {
+  margin: 4px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+}
+
+
+/* ==========================================================
+   LOADING
+   ========================================================== */
+
+.dashboard-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  padding: 30px;
+
+  color: var(--text-muted);
+
+  font-size: 10px;
+}
+
+
+.dashboard-spinner {
+  width: 13px;
+  height: 13px;
+
+  border: 2px solid var(--primary-light);
+
+  border-top-color: var(--primary);
+
+  border-radius: 50%;
+
+  animation:
+    dashboard-spin
+    0.8s linear infinite;
+}
+
+
+@keyframes dashboard-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 1000px) {
+
+  .dashboard-metrics {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .land-cover-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .condition-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .amenity-grid {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 700px) {
+
+  .dashboard-page {
+    width: calc(100% - 40px);
+
+    padding-top: 50px;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .dashboard-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .land-cover-main {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .condition-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .amenity-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .dashboard-header h1 {
+    font-size: 38px;
+  }
+
+  .dashboard-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .condition-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .amenity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .land-cover-main {
+    padding: 20px;
+  }
+
+  .coverage-ring {
+    width: 145px;
+    height: 145px;
+  }
+
+  .coverage-ring > div {
+    width: 110px;
+    height: 110px;
+  }
+}

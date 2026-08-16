@@ -1,0 +1,217 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+
+  background: rgba(247, 249, 245, 0.94);
+
+  border-bottom: 1px solid var(--border-light);
+
+  backdrop-filter: blur(14px);
+}
+
+.navbar-container {
+  width: min(
+    var(--max-width),
+    calc(100% - 48px)
+  );
+
+  min-height: 72px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* ==========================================================
+   Logo
+   ========================================================== */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: var(--primary);
+
+  font-size: 17px;
+}
+
+.logo-name {
+  display: flex;
+  flex-direction: column;
+
+  color: var(--text-primary);
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.2px;
+}
+
+.logo-name span {
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 500;
+
+  margin-top: 3px;
+}
+
+
+/* ==========================================================
+   Navigation
+   ========================================================== */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-left: auto;
+  margin-right: 28px;
+}
+
+.nav-link {
+  position: relative;
+
+  padding: 9px 13px;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+  font-weight: 500;
+
+  border-radius: var(--radius-sm);
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+
+  background: var(--primary-light);
+}
+
+.nav-link.active {
+  color: var(--primary);
+
+  font-weight: 650;
+}
+
+.nav-link.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -8px;
+
+  width: 5px;
+  height: 5px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: var(--primary);
+}
+
+
+/* ==========================================================
+   Analyze Button
+   ========================================================== */
+
+.navbar-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  border-radius: 9px;
+
+  background: var(--primary);
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-action:hover {
+  background: var(--primary-dark);
+
+  transform: translateY(-1px);
+}
+
+.navbar-action span {
+  font-size: 14px;
+}
+
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+@media (max-width: 850px) {
+
+  .navbar-container {
+    width: min(
+      var(--max-width),
+      calc(100% - 32px)
+    );
+  }
+
+  .navbar-links {
+    margin-right: 12px;
+  }
+
+  .nav-link {
+    padding: 8px 8px;
+  }
+
+  .navbar-action {
+    padding: 9px 12px;
+  }
+}
+
+
+@media (max-width: 700px) {
+
+  .navbar-container {
+    min-height: 64px;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-action {
+    margin-left: auto;
+  }
+}

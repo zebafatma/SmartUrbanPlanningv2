@@ -1,0 +1,1097 @@
+.analysis-page {
+  width: min(
+    var(--max-width),
+    calc(100% - 64px)
+  );
+
+  margin: 0 auto;
+
+  padding: 70px 0 110px;
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.analysis-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 50px;
+
+  margin-bottom: 50px;
+}
+
+
+.analysis-header-content {
+  max-width: 700px;
+}
+
+
+.analysis-eyebrow {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 750;
+
+  letter-spacing: 1.4px;
+}
+
+
+.analysis-header h1 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: clamp(
+    42px,
+    5vw,
+    64px
+  );
+
+  line-height: 1;
+
+  letter-spacing: -2.8px;
+}
+
+
+.analysis-header h1 span {
+  color: var(--primary);
+}
+
+
+.analysis-header p {
+  max-width: 610px;
+
+  margin: 20px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+
+  line-height: 1.75;
+}
+
+
+/* ==========================================================
+   MODEL STATUS
+   ========================================================== */
+
+.analysis-model-status {
+  min-width: 210px;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 14px 16px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+}
+
+
+.model-status-dot {
+  width: 9px;
+  height: 9px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+
+  box-shadow:
+    0 0 0 5px
+    var(--primary-light);
+}
+
+
+.analysis-model-status div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+.analysis-model-status div span {
+  color: var(--text-muted);
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+.analysis-model-status strong {
+  color: var(--text-primary);
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* ==========================================================
+   WORKSPACE
+   ========================================================== */
+
+.analysis-workspace {
+  padding: 30px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+.analysis-workspace-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 24px;
+}
+
+
+.workspace-number {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 750;
+
+  letter-spacing: 1px;
+}
+
+
+.analysis-workspace-heading h2 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 21px;
+
+  letter-spacing: -0.5px;
+}
+
+
+.analysis-workspace-heading p {
+  margin: 6px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 11px;
+}
+
+
+.remove-image-button {
+  padding: 8px 11px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  font-size: 10px;
+
+  transition: 0.2s ease;
+}
+
+
+.remove-image-button:hover {
+  border-color: var(--primary);
+
+  color: var(--primary);
+
+  background: var(--primary-light);
+}
+
+
+/* ==========================================================
+   UPLOAD
+   ========================================================== */
+
+.upload-zone {
+  min-height: 370px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  border: 1.5px dashed
+    var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--background);
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.upload-zone:hover,
+.upload-zone.dragging {
+  border-color: var(--primary);
+
+  background: var(--primary-light);
+}
+
+
+.upload-zone.dragging {
+  transform: scale(0.995);
+}
+
+
+.upload-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 16px;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+
+  font-size: 25px;
+}
+
+
+.upload-zone h3 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 16px;
+}
+
+
+.upload-zone p {
+  margin: 8px 0 15px;
+
+  color: var(--text-muted);
+
+  font-size: 11px;
+}
+
+
+.upload-formats {
+  padding: 6px 9px;
+
+  border-radius: 6px;
+
+  background: var(--surface);
+
+  color: var(--text-muted);
+
+  font-size: 8px;
+  font-weight: 650;
+
+  letter-spacing: 0.8px;
+}
+
+
+/* ==========================================================
+   IMAGE PREVIEW
+   ========================================================== */
+
+.image-preview-container {
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--background);
+}
+
+
+.preview-image-wrapper {
+  position: relative;
+
+  min-height: 370px;
+  max-height: 520px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  overflow: hidden;
+}
+
+
+.satellite-preview {
+  display: block;
+
+  max-width: 100%;
+  max-height: 480px;
+
+  object-fit: contain;
+
+  border-radius: 8px;
+}
+
+
+.preview-badge {
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 9px;
+
+  border: 1px solid
+    rgba(220, 229, 223, 0.9);
+
+  border-radius: 7px;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+.preview-badge span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+}
+
+
+.preview-information {
+  display: grid;
+
+  grid-template-columns:
+    2fr 1fr 1fr;
+
+  border-top:
+    1px solid var(--border);
+}
+
+
+.preview-information > div {
+  min-width: 0;
+
+  padding: 14px 17px;
+
+  border-right:
+    1px solid var(--border-light);
+}
+
+
+.preview-information > div:last-child {
+  border-right: 0;
+}
+
+
+.preview-information span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--text-muted);
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 0.7px;
+}
+
+
+.preview-information strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: var(--text-primary);
+
+  font-size: 10px;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+
+.preview-information .ready-text {
+  color: var(--primary);
+}
+
+
+/* ==========================================================
+   ACTION
+   ========================================================== */
+
+.analysis-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-top: 22px;
+}
+
+
+.analysis-hint {
+  max-width: 570px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+
+  color: var(--text-muted);
+}
+
+
+.analysis-hint > span {
+  color: var(--primary);
+
+  font-size: 11px;
+}
+
+
+.analysis-hint p {
+  margin: 0;
+
+  font-size: 10px;
+
+  line-height: 1.6;
+}
+
+
+.analyze-button {
+  min-width: 155px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  padding: 12px 17px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background: var(--primary);
+
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 650;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+.analyze-button:hover:not(:disabled) {
+  background: var(--primary-dark);
+
+  transform: translateY(-1px);
+}
+
+
+.analyze-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+/* ==========================================================
+   ERROR
+   ========================================================== */
+
+.analysis-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 16px;
+
+  padding: 11px 13px;
+
+  border: 1px solid
+    rgba(182, 83, 83, 0.18);
+
+  border-radius: 8px;
+
+  background: #fbf3f3;
+
+  color: var(--danger);
+
+  font-size: 10px;
+}
+
+
+.analysis-error span {
+  width: 19px;
+  height: 19px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(182, 83, 83, 0.1);
+
+  font-weight: 700;
+}
+
+
+/* ==========================================================
+   SPINNER
+   ========================================================== */
+
+.analysis-spinner {
+  width: 13px;
+  height: 13px;
+
+  border: 2px solid
+    rgba(255, 255, 255, 0.35);
+
+  border-top-color: #ffffff;
+
+  border-radius: 50%;
+
+  animation:
+    analysis-spin 0.8s
+    linear infinite;
+}
+
+
+@keyframes analysis-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ==========================================================
+   PROGRESS
+   ========================================================== */
+
+.analysis-progress {
+  margin-top: 22px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+}
+
+
+.progress-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 20px;
+}
+
+
+.progress-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+}
+
+
+.progress-content span {
+  color: var(--primary);
+
+  font-size: 8px;
+  font-weight: 750;
+
+  letter-spacing: 1px;
+}
+
+
+.progress-content h3 {
+  margin: 4px 0 3px;
+
+  color: var(--text-primary);
+
+  font-size: 13px;
+}
+
+
+.progress-content p {
+  margin: 0;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+}
+
+
+.progress-line {
+  height: 3px;
+
+  overflow: hidden;
+
+  background: var(--primary-light);
+}
+
+
+.progress-line div {
+  width: 35%;
+  height: 100%;
+
+  background: var(--primary);
+
+  animation:
+    progress-slide
+    1.4s ease-in-out
+    infinite;
+}
+
+
+@keyframes progress-slide {
+  0% {
+    transform:
+      translateX(-120%);
+  }
+
+  100% {
+    transform:
+      translateX(390%);
+  }
+}
+
+
+/* ==========================================================
+   RESULTS
+   ========================================================== */
+
+.analysis-results {
+  margin-top: 70px;
+}
+
+
+.results-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 25px;
+}
+
+
+.results-heading h2 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 30px;
+
+  letter-spacing: -1px;
+}
+
+
+.results-heading p {
+  margin: 7px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 11px;
+}
+
+
+.complete-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 8px 11px;
+
+  border-radius: 8px;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+.complete-badge span {
+  font-weight: 800;
+}
+
+
+/* ==========================================================
+   LAND COVER CARDS
+   ========================================================== */
+
+.land-cover-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 12px;
+}
+
+
+.land-cover-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 17px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 11px;
+
+  background: var(--surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+.land-cover-symbol {
+  width: 10px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  border-radius: 8px;
+
+  background: var(--primary);
+}
+
+
+.land-cover-symbol.background {
+  background: #a8b1ac;
+}
+
+
+.land-cover-symbol.road {
+  background: #65736c;
+}
+
+
+.land-cover-symbol.building {
+  background: #89968f;
+}
+
+
+.land-cover-symbol.vegetation {
+  background: var(--primary);
+}
+
+
+/*
+  Blue is intentionally used only
+  for the semantic Water class.
+*/
+
+.land-cover-symbol.water {
+  background: var(--blue);
+}
+
+
+.land-cover-card span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+}
+
+
+.land-cover-card strong {
+  color: var(--text-primary);
+
+  font-size: 19px;
+}
+
+
+/* ==========================================================
+   SUMMARY
+   ========================================================== */
+
+.result-summary {
+  margin-top: 18px;
+
+  padding: 25px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+}
+
+
+.result-summary-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  margin-bottom: 25px;
+}
+
+
+.result-summary-heading h3 {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: 15px;
+}
+
+
+.result-summary-heading p {
+  margin: 4px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 9px;
+}
+
+
+/* ==========================================================
+   COVERAGE BARS
+   ========================================================== */
+
+.coverage-bars {
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+
+.coverage-label {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 6px;
+}
+
+
+.coverage-label span {
+  color: var(--text-secondary);
+
+  font-size: 10px;
+}
+
+
+.coverage-label strong {
+  color: var(--text-primary);
+
+  font-size: 10px;
+}
+
+
+.coverage-track {
+  height: 7px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  background: var(--surface-soft);
+}
+
+
+.coverage-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: var(--primary);
+
+  transition:
+    width 0.7s ease;
+}
+
+
+.coverage-fill.background {
+  background: #a8b1ac;
+}
+
+
+.coverage-fill.road {
+  background: #65736c;
+}
+
+
+.coverage-fill.building {
+  background: #89968f;
+}
+
+
+.coverage-fill.vegetation {
+  background: var(--primary);
+}
+
+
+.coverage-fill.water {
+  background: var(--blue);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 950px) {
+
+  .analysis-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .land-cover-grid {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 700px) {
+
+  .analysis-page {
+    width: calc(100% - 40px);
+
+    padding-top: 50px;
+  }
+
+  .analysis-header h1 {
+    font-size: 44px;
+  }
+
+  .analysis-workspace {
+    padding: 20px;
+  }
+
+  .upload-zone {
+    min-height: 310px;
+  }
+
+  .analysis-action-row {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .analyze-button {
+    width: 100%;
+  }
+
+  .land-cover-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .results-heading {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .analysis-header h1 {
+    font-size: 38px;
+
+    letter-spacing: -2px;
+  }
+
+  .preview-information {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-information > div {
+    border-right: 0;
+
+    border-bottom:
+      1px solid var(--border-light);
+  }
+
+  .land-cover-grid {
+    grid-template-columns: 1fr;
+  }
+}
