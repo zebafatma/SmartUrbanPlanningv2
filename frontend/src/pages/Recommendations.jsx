@@ -16,7 +16,40 @@ function Recommendations() {
     setError("");
 
     try {
-      const data = await getRecommendations();
+      const storedAnalysis =
+        sessionStorage.getItem("urbanAnalysis");
+
+      if (!storedAnalysis) {
+        throw new Error(
+          "Please analyze a satellite image before viewing recommendations."
+        );
+      }
+
+      const analysis = JSON.parse(storedAnalysis);
+
+      const area = analysis.area;
+      const ward = analysis.ward;
+
+      const segmentationStatistics =
+        analysis.statistics;
+
+      if (!area || !ward) {
+        throw new Error(
+          "Analysis location is not available. Please select an area and analyze an image first."
+        );
+      }
+
+      if (!segmentationStatistics) {
+        throw new Error(
+          "Segmentation results are not available."
+        );
+      }
+
+      const data = await getRecommendations(
+        area,
+        ward,
+        segmentationStatistics
+      );
 
       setRecommendations(
         normalizeRecommendations(data)

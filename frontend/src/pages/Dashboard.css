@@ -1,12 +1,18 @@
+/* ==========================================================
+   DASHBOARD
+   ========================================================== */
+
 .dashboard-page {
   width: min(
-    var(--max-width),
+    var(--max-width, 1280px),
     calc(100% - 64px)
   );
 
   margin: 0 auto;
 
-  padding: 65px 0 110px;
+  padding: 64px 0 100px;
+
+  color: #15251e;
 }
 
 
@@ -24,729 +30,101 @@
   margin-bottom: 42px;
 }
 
+.dashboard-header > div:first-child {
+  max-width: 720px;
+}
 
-.dashboard-eyebrow {
+.section-tag {
   display: block;
 
   margin-bottom: 10px;
 
-  color: var(--primary);
+  color: #167653;
 
-  font-size: 9px;
-  font-weight: 750;
+  font-size: 10px;
+  font-weight: 700;
 
-  letter-spacing: 1.4px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
-
 
 .dashboard-header h1 {
   margin: 0;
 
-  color: var(--text-primary);
+  color: #15251e;
 
-  font-size: clamp(
-    40px,
-    4.5vw,
-    58px
-  );
+  font-size: clamp(42px, 5vw, 64px);
 
   line-height: 1;
 
-  letter-spacing: -2.5px;
+  letter-spacing: -2.8px;
 }
 
+.dashboard-header h1 span {
+  color: #167653;
+}
 
 .dashboard-header p {
-  margin: 13px 0 0;
+  max-width: 620px;
 
-  color: var(--text-secondary);
+  margin: 16px 0 0;
 
-  font-size: 13px;
-}
+  color: #66776f;
 
+  font-size: 14px;
 
-.location-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  padding: 12px 15px;
-
-  border: 1px solid var(--border);
-
-  border-radius: 11px;
-
-  background: var(--surface);
-}
-
-
-.location-dot {
-  width: 8px;
-  height: 8px;
-
-  border-radius: 50%;
-
-  background: var(--primary);
-}
-
-
-.location-pill div {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-
-.location-pill strong {
-  color: var(--text-primary);
-
-  font-size: 11px;
-}
-
-
-.location-pill span:not(.location-dot) {
-  color: var(--text-muted);
-
-  font-size: 9px;
+  line-height: 1.6;
 }
 
 
 /* ==========================================================
-   METRICS
+   LOCATION
    ========================================================== */
 
-.dashboard-metrics {
-  display: grid;
+.location-card {
+  min-width: 230px;
 
-  grid-template-columns:
-    repeat(4, 1fr);
+  padding: 20px 24px;
 
-  gap: 12px;
+  border: 1px solid #dbe5df;
 
-  margin-bottom: 65px;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(22, 118, 83, 0.06);
 }
 
-
-.metric-card {
-  min-height: 130px;
-
-  padding: 19px;
-
-  border: 1px solid var(--border);
-
-  border-radius: var(--radius-md);
-
-  background: var(--surface);
-
-  box-shadow: var(--shadow-sm);
-}
-
-
-.metric-card > span {
+.location-card span {
   display: block;
 
-  margin-bottom: 17px;
+  margin-bottom: 9px;
 
-  color: var(--text-muted);
+  color: #167653;
 
   font-size: 9px;
-  font-weight: 600;
-}
-
-
-.metric-card strong {
-  display: block;
-
-  color: var(--text-primary);
-
-  font-size: 27px;
-
-  letter-spacing: -0.8px;
-}
-
-
-.metric-card small {
-  display: block;
-
-  margin-top: 5px;
-
-  color: var(--primary);
-
-  font-size: 9px;
-}
-
-
-/* ==========================================================
-   ERROR
-   ========================================================== */
-
-.dashboard-error {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-bottom: 40px;
-
-  padding: 13px 15px;
-
-  border: 1px solid
-    rgba(182, 83, 83, 0.18);
-
-  border-radius: 10px;
-
-  background: #fbf3f3;
-}
-
-
-.dashboard-error > span {
-  width: 24px;
-  height: 24px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background: rgba(182, 83, 83, 0.1);
-
-  color: var(--danger);
-
-  font-size: 11px;
   font-weight: 700;
+
+  letter-spacing: 1.4px;
 }
 
-
-.dashboard-error div {
-  flex: 1;
-}
-
-
-.dashboard-error strong {
+.location-card strong {
   display: block;
 
-  color: var(--danger);
-
-  font-size: 10px;
-}
-
-
-.dashboard-error p {
-  margin: 3px 0 0;
-
-  color: var(--text-secondary);
-
-  font-size: 9px;
-}
-
-
-.dashboard-error button {
-  padding: 7px 11px;
-
-  border: 1px solid
-    rgba(182, 83, 83, 0.2);
-
-  border-radius: 7px;
-
-  background: transparent;
-
-  color: var(--danger);
-
-  font-size: 9px;
-}
-
-
-/* ==========================================================
-   SECTIONS
-   ========================================================== */
-
-.dashboard-section {
-  margin-bottom: 70px;
-}
-
-
-.dashboard-section-heading {
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-
-  margin-bottom: 22px;
-}
-
-
-.section-number {
-  color: var(--primary);
-
-  font-size: 9px;
-  font-weight: 750;
-
-  letter-spacing: 1px;
-}
-
-
-.dashboard-section-heading h2 {
-  margin: 0;
-
-  color: var(--text-primary);
-
-  font-size: 23px;
-
-  letter-spacing: -0.6px;
-}
-
-
-.dashboard-section-heading p {
-  margin: 4px 0 0;
-
-  color: var(--text-muted);
-
-  font-size: 10px;
-}
-
-
-/* ==========================================================
-   LAND COVER
-   ========================================================== */
-
-.land-cover-dashboard {
-  display: grid;
-
-  grid-template-columns:
-    1.2fr 0.8fr;
-
-  gap: 18px;
-}
-
-
-.land-cover-main {
-  min-height: 270px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 35px;
-
-  padding: 28px;
-
-  border: 1px solid var(--border);
-
-  border-radius: var(--radius-md);
-
-  background: var(--surface);
-
-  box-shadow: var(--shadow-sm);
-}
-
-
-.land-cover-visual {
-  flex-shrink: 0;
-}
-
-
-.coverage-ring {
-  width: 175px;
-  height: 175px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background:
-    conic-gradient(
-      var(--primary) 0 76%,
-      var(--primary-light) 76% 100%
-    );
-}
-
-
-.coverage-ring::before {
-  content: "";
-
-  position: absolute;
-}
-
-
-.coverage-ring > div {
-  width: 132px;
-  height: 132px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: var(--surface);
-}
-
-
-.coverage-ring strong {
-  color: var(--text-primary);
-
-  font-size: 28px;
-
-  letter-spacing: -1px;
-}
-
-
-.coverage-ring span {
-  margin-top: 2px;
-
-  color: var(--text-muted);
-
-  font-size: 9px;
-}
-
-
-.land-cover-copy {
-  max-width: 310px;
-}
-
-
-.mini-label {
-  color: var(--primary);
-
-  font-size: 8px;
-  font-weight: 750;
-
-  letter-spacing: 1px;
-}
-
-
-.land-cover-copy h3 {
-  margin: 8px 0;
-
-  color: var(--text-primary);
-
-  font-size: 18px;
-}
-
-
-.land-cover-copy p {
-  margin: 0;
-
-  color: var(--text-secondary);
-
-  font-size: 11px;
-
-  line-height: 1.7;
-}
-
-
-/* ==========================================================
-   LAND COVER LIST
-   ========================================================== */
-
-.land-cover-list {
-  padding: 22px;
-
-  border: 1px solid var(--border);
-
-  border-radius: var(--radius-md);
-
-  background: var(--surface);
-}
-
-
-.dashboard-land-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 14px 0;
-
-  border-bottom:
-    1px solid var(--border-light);
-}
-
-
-.dashboard-land-row:first-child {
-  padding-top: 2px;
-}
-
-
-.dashboard-land-row:last-child {
-  padding-bottom: 2px;
-
-  border-bottom: 0;
-}
-
-
-.dashboard-land-name {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  color: var(--text-secondary);
-
-  font-size: 10px;
-}
-
-
-.land-dot {
-  width: 8px;
-  height: 8px;
-
-  border-radius: 50%;
-
-  background: var(--primary);
-}
-
-
-.land-dot.background {
-  background: #a8b1ac;
-}
-
-
-.land-dot.road {
-  background: #65736c;
-}
-
-
-.land-dot.building {
-  background: #89968f;
-}
-
-
-.land-dot.vegetation {
-  background: var(--primary);
-}
-
-
-.land-dot.water {
-  background: var(--blue);
-}
-
-
-.dashboard-land-row strong {
-  color: var(--text-primary);
-
-  font-size: 11px;
-}
-
-
-/* ==========================================================
-   CONDITIONS
-   ========================================================== */
-
-.condition-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap: 12px;
-}
-
-
-.condition-card {
-  min-height: 145px;
-
-  padding: 18px;
-
-  border: 1px solid var(--border);
-
-  border-radius: var(--radius-md);
-
-  background: var(--surface);
-
-  box-shadow: var(--shadow-sm);
-}
-
-
-.condition-card-top {
-  display: flex;
-  justify-content: space-between;
-
-  margin-bottom: 23px;
-}
-
-
-.condition-card-top > span:first-child {
-  color: var(--text-muted);
-
-  font-size: 9px;
-  font-weight: 600;
-}
-
-
-.condition-indicator {
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  background: var(--primary);
-}
-
-
-.condition-card strong {
-  display: block;
-
-  color: var(--text-primary);
+  color: #15251e;
 
   font-size: 20px;
 }
 
-
-.condition-card small {
+.location-card small {
   display: block;
 
-  margin-top: 6px;
+  margin-top: 5px;
 
-  color: var(--text-muted);
-
-  font-size: 9px;
-}
-
-
-.semantic-blue .condition-indicator {
-  background: var(--blue);
-}
-
-
-/* ==========================================================
-   AMENITIES
-   ========================================================== */
-
-.amenity-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(5, 1fr);
-
-  gap: 12px;
-}
-
-
-.amenity-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  padding: 16px;
-
-  border: 1px solid var(--border);
-
-  border-radius: 11px;
-
-  background: var(--surface);
-}
-
-
-.amenity-icon {
-  width: 35px;
-  height: 35px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  border-radius: 9px;
-
-  background: var(--primary-light);
-
-  color: var(--primary);
-
-  font-size: 14px;
-}
-
-
-.amenity-card div:last-child {
-  min-width: 0;
-}
-
-
-.amenity-card span {
-  display: block;
-
-  overflow: hidden;
-
-  color: var(--text-secondary);
-
-  font-size: 9px;
-
-  white-space: nowrap;
-
-  text-overflow: ellipsis;
-}
-
-
-.amenity-card strong {
-  display: block;
-
-  margin-top: 2px;
-
-  color: var(--text-primary);
-
-  font-size: 17px;
-}
-
-
-.amenity-card small {
-  color: var(--text-muted);
-
-  font-size: 7px;
-}
-
-
-/* ==========================================================
-   EMPTY STATE
-   ========================================================== */
-
-.dashboard-empty {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-
-  padding: 25px;
-
-  border: 1px dashed var(--border);
-
-  border-radius: var(--radius-md);
-
-  background: var(--background);
-}
-
-
-.empty-icon {
-  width: 42px;
-  height: 42px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 10px;
-
-  background: var(--primary-light);
-
-  color: var(--primary);
-}
-
-
-.dashboard-empty h3 {
-  margin: 0;
-
-  color: var(--text-primary);
+  color: #7b8b84;
 
   font-size: 12px;
-}
-
-
-.dashboard-empty p {
-  margin: 4px 0 0;
-
-  color: var(--text-muted);
-
-  font-size: 9px;
 }
 
 
@@ -754,35 +132,39 @@
    LOADING
    ========================================================== */
 
-.dashboard-loading {
+.dashboard-state {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+
+  gap: 10px;
+
+  min-height: 180px;
 
   padding: 30px;
 
-  color: var(--text-muted);
+  border: 1px solid #dbe5df;
 
-  font-size: 10px;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  color: #66776f;
+
+  font-size: 14px;
 }
 
-
 .dashboard-spinner {
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
 
-  border: 2px solid var(--primary-light);
-
-  border-top-color: var(--primary);
+  border: 2px solid #dcebe4;
+  border-top-color: #167653;
 
   border-radius: 50%;
 
-  animation:
-    dashboard-spin
-    0.8s linear infinite;
+  animation: dashboard-spin 0.8s linear infinite;
 }
-
 
 @keyframes dashboard-spin {
   to {
@@ -792,96 +174,644 @@
 
 
 /* ==========================================================
+   ERROR
+   ========================================================== */
+
+.dashboard-error {
+  padding: 18px 20px;
+
+  border: 1px solid #f0d1d1;
+
+  border-radius: 14px;
+
+  background: #fff6f6;
+
+  color: #b54747;
+
+  font-size: 14px;
+}
+
+
+/* ==========================================================
+   DASHBOARD CONTENT
+   ========================================================== */
+
+.dashboard-content {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 56px;
+}
+
+
+/* ==========================================================
+   METRIC CARDS
+   ========================================================== */
+
+.metric-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 16px;
+}
+
+.metric-card {
+  min-height: 150px;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 16px;
+
+  padding: 22px;
+
+  border: 1px solid #dbe5df;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(22, 118, 83, 0.05);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(22, 118, 83, 0.09);
+}
+
+.metric-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #e8f4ee;
+
+  color: #167653;
+
+  font-size: 18px;
+}
+
+.metric-icon.blue {
+  background: #edf5f8;
+  color: #4286a5;
+}
+
+.metric-icon.green {
+  background: #e8f4ee;
+  color: #167653;
+}
+
+.metric-icon.teal {
+  background: #e8f4ee;
+  color: #167653;
+}
+
+.metric-icon.orange {
+  background: #f1f4f2;
+  color: #53665e;
+}
+
+.metric-card > div:last-child {
+  min-width: 0;
+}
+
+.metric-card span {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #7a8b83;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+}
+
+.metric-card strong {
+  display: block;
+
+  color: #15251e;
+
+  font-size: 23px;
+
+  line-height: 1.2;
+}
+
+
+/* ==========================================================
+   DATA GRID
+   ========================================================== */
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 18px;
+}
+
+
+/* ==========================================================
+   DATA CARD
+   ========================================================== */
+
+.data-card {
+  min-height: 260px;
+
+  padding: 26px;
+
+  border: 1px solid #dbe5df;
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(22, 118, 83, 0.04);
+}
+
+.data-card-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 18px;
+
+  margin-bottom: 8px;
+
+  border-bottom: 1px solid #edf2ef;
+}
+
+.data-card-header h3 {
+  margin: 0;
+
+  color: #15251e;
+
+  font-size: 17px;
+
+  letter-spacing: -0.3px;
+}
+
+.data-indicator {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #167653;
+}
+
+.data-indicator.blue {
+  background: #4286a5;
+}
+
+.data-indicator.green {
+  background: #167653;
+}
+
+.data-indicator.teal {
+  background: #167653;
+}
+
+.data-indicator.orange {
+  background: #53665e;
+}
+
+
+/* ==========================================================
+   DATA VALUES
+   ========================================================== */
+
+.data-values {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.data-row {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 13px 0;
+
+  border-bottom: 1px solid #edf2ef;
+}
+
+.data-row:last-child {
+  border-bottom: 0;
+}
+
+.data-row span {
+  color: #6e8077;
+
+  font-size: 12px;
+}
+
+.data-row strong {
+  color: #15251e;
+
+  font-size: 13px;
+
+  text-align: right;
+}
+
+.no-data {
+  margin: 30px 0;
+
+  color: #8b9993;
+
+  font-size: 13px;
+}
+
+
+/* ==========================================================
+   AMENITIES SECTION
+   ========================================================== */
+
+.amenities-section {
+  padding-top: 4px;
+}
+
+.section-title-row {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-bottom: 22px;
+}
+
+.section-title-row h2 {
+  margin: 0;
+
+  color: #15251e;
+
+  font-size: 28px;
+
+  letter-spacing: -0.8px;
+}
+
+
+/* ==========================================================
+   AMENITIES GRID
+   ========================================================== */
+
+.amenities-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 14px;
+}
+
+.amenity-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  min-height: 95px;
+
+  padding: 18px;
+
+  border: 1px solid #dbe5df;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 6px 18px rgba(22, 118, 83, 0.04);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.amenity-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #bcd9ca;
+}
+
+.amenity-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #e8f4ee;
+
+  color: #167653;
+
+  font-size: 17px;
+}
+
+.amenity-card > div:last-child {
+  min-width: 0;
+}
+
+.amenity-card span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #6e8077;
+
+  font-size: 11px;
+}
+
+.amenity-card strong {
+  display: block;
+
+  color: #15251e;
+
+  font-size: 19px;
+}
+
+
+/* ==========================================================
+   SATELLITE LAND-COVER
+   ========================================================== */
+
+.land-cover-section {
+  width: 100%;
+
+  padding: 30px;
+
+  border: 1px solid #dbe5df;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(22, 118, 83, 0.04);
+}
+
+.land-cover-section .dashboard-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.dashboard-section-heading h2 {
+  margin: 0;
+
+  color: #15251e;
+
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.7px;
+}
+
+.dashboard-section-heading .section-description {
+  max-width: 430px;
+
+  margin: 0;
+
+  color: #66776f;
+
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.land-cover-grid {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 14px;
+}
+
+.land-cover-card {
+  min-height: 112px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  padding: 18px;
+
+  border: 1px solid #dbe5df;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 5px 16px rgba(22, 118, 83, 0.035);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.land-cover-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #bcd9ca;
+
+  box-shadow:
+    0 9px 22px rgba(22, 118, 83, 0.07);
+}
+
+.land-cover-card-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.land-cover-card-header > span:last-child {
+  color: #6e8077;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.6px;
+}
+
+.land-cover-dot {
+  width: 12px;
+
+  height: 12px;
+
+  flex-shrink: 0;
+
+  border-radius: 4px;
+}
+
+/* Exact visualization colors from the segmentation model */
+
+.land-cover-dot.background {
+  background: rgb(0, 0, 0);
+}
+
+.land-cover-dot.road {
+  background: rgb(255, 255, 255);
+
+  border: 1px solid #aebbb5;
+}
+
+.land-cover-dot.building {
+  background: rgb(220, 20, 60);
+}
+
+.land-cover-dot.vegetation {
+  background: rgb(34, 139, 34);
+}
+
+.land-cover-dot.water {
+  background: rgb(30, 144, 255);
+}
+
+.land-cover-card strong {
+  display: block;
+
+  color: #15251e;
+
+  font-size: 25px;
+
+  line-height: 1;
+}
+
+
+/* ==========================================================
    RESPONSIVE
    ========================================================== */
 
-@media (max-width: 1000px) {
-
-  .dashboard-metrics {
-    grid-template-columns:
-      repeat(2, 1fr);
+@media (max-width: 1100px) {
+  .dashboard-page {
+    width: min(
+      var(--max-width, 1280px),
+      calc(100% - 40px)
+    );
   }
 
-  .land-cover-dashboard {
-    grid-template-columns: 1fr;
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .condition-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
+  .amenities-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .amenity-grid {
-    grid-template-columns:
-      repeat(3, 1fr);
+  .land-cover-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .land-cover-section {
+    padding: 24px;
   }
 }
 
 
-@media (max-width: 700px) {
-
-  .dashboard-page {
-    width: calc(100% - 40px);
-
-    padding-top: 50px;
-  }
-
+@media (max-width: 800px) {
   .dashboard-header {
     align-items: flex-start;
 
     flex-direction: column;
   }
 
-  .dashboard-metrics {
-    grid-template-columns: 1fr 1fr;
+  .location-card {
+    width: 100%;
   }
 
-  .land-cover-main {
-    flex-direction: column;
-
-    align-items: flex-start;
+  .dashboard-grid {
+    grid-template-columns: 1fr;
   }
 
-  .condition-grid {
-    grid-template-columns: 1fr 1fr;
+  .amenities-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .amenity-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
+  .land-cover-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 560px) {
+  .dashboard-page {
+    width: calc(100% - 28px);
+
+    padding-top: 40px;
+  }
 
   .dashboard-header h1 {
-    font-size: 38px;
+    font-size: 40px;
+
+    letter-spacing: -1.8px;
   }
 
-  .dashboard-metrics {
+  .metric-grid {
     grid-template-columns: 1fr;
   }
 
-  .condition-grid {
+  .amenities-grid {
     grid-template-columns: 1fr;
   }
 
-  .amenity-grid {
+  .land-cover-grid {
     grid-template-columns: 1fr;
   }
 
-  .land-cover-main {
+  .dashboard-content {
+    gap: 40px;
+  }
+
+  .data-card {
     padding: 20px;
   }
 
-  .coverage-ring {
-    width: 145px;
-    height: 145px;
+  .land-cover-section {
+    padding: 20px;
   }
 
-  .coverage-ring > div {
-    width: 110px;
-    height: 110px;
+  .section-title-row h2 {
+    font-size: 24px;
   }
 }

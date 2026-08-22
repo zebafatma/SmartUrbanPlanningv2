@@ -98,6 +98,43 @@ class PopulationAnalyzer:
         return ward.iloc[0]
 
     # ======================================================
+    # Available Locations
+    # ======================================================
+
+    def get_locations(self):
+        """
+        Return available Bangalore wards/areas.
+        """
+
+        locations = (
+            self.df[
+                [
+                    "Ward_No",
+                    "Ward Name",
+                    "BBMP Zone Name",
+                ]
+            ]
+            .dropna(
+                subset=[
+                    "Ward_No",
+                    "Ward Name",
+                ]
+            )
+            .drop_duplicates(
+                subset=["Ward_No"]
+            )
+            .sort_values("Ward_No")
+        )
+
+        return [
+            {
+                "ward_no": int(row["Ward_No"]),
+                "ward_name": str(row["Ward Name"]),
+                "zone": str(row["BBMP Zone Name"]),
+            }
+            for _, row in locations.iterrows()
+        ]
+    # ======================================================
     # Infrastructure Score
     # ======================================================
 

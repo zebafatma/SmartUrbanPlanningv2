@@ -9,11 +9,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Analysis from "./pages/Analysis"
 import Dashboard from "./pages/Dashboard";
-
-
-function Recommendations() {
-  return <h1>Recommendations</h1>;
-}
+import Recommendations from "./pages/Recommendations"
 
 
 function App() {

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { analyzeImage } from "../services/api";
 import "./Analysis.css";
 
@@ -16,6 +16,44 @@ function Analysis() {
 
   const [isDragging, setIsDragging] = useState(false);
 
+  // ==========================================================
+  // Location Selection
+  // ==========================================================
+
+  const [locations, setLocations] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [isLoadingLocations, setIsLoadingLocations] = useState(true);
+
+  useEffect(() => {
+    const loadLocations = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/urban-data/locations"
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail || "Failed to load Bangalore locations."
+          );
+        }
+
+        setLocations(data.locations || []);
+      } catch (err) {
+        setError(
+          err.message ||
+            "Unable to load Bangalore locations."
+        );
+      } finally {
+        setIsLoadingLocations(false);
+      }
+    };
+
+    loadLocations();
+  }, []);
+
+
 
   // ==========================================================
   // File Selection
@@ -30,17 +68,44 @@ function Analysis() {
       "image/png",
       "image/jpeg",
       "image/jpg",
+      "image/tiff",
     ];
 
-    if (!validTypes.includes(file.type)) {
+    const validExtensions = [
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".tif",
+      ".tiff",
+    ];
+
+    const fileExtension = file.name
+      ? `.${file.name.split(".").pop().toLowerCase()}`
+      : "";
+
+    const isValidType =
+      validTypes.includes(file.type) ||
+      validExtensions.includes(fileExtension);
+
+    if (!isValidType) {
       setError(
-        "Please upload a PNG, JPG, or JPEG image."
+        "Please upload a PNG, JPG, JPEG or TIFF image."
       );
+
       return;
     }
 
     setSelectedFile(file);
 
+    /*
+     * TIFF files cannot be reliably displayed directly
+     * by the browser.
+     *
+     * We still create the object URL because it is useful
+     * for PNG/JPG/JPEG previews.
+     *
+     * TIFF files will use the placeholder below.
+     */
     setPreview(
       URL.createObjectURL(file)
     );
@@ -88,6 +153,14 @@ function Analysis() {
   // ==========================================================
 
   const handleAnalyze = async () => {
+    if (!selectedLocation) {
+      setError(
+        "Please select a Bangalore area first."
+      );
+
+      return;
+    }
+
     if (!selectedFile) {
       setError(
         "Please upload a satellite image first."
@@ -107,16 +180,37 @@ function Analysis() {
         selectedFile
       );
 
+      /*
+       * Keep the complete API response in React state.
+       *
+       * This includes:
+       * - statistics
+       * - original image
+       * - segmentation mask
+       * - overlay image
+       *
+       * React state is fine for these images because they
+       * are only needed while this page is open.
+       */
       setResult(data);
 
       /*
        * Keep the latest analysis available for
        * Dashboard / Recommendations later.
+       *
+       * IMPORTANT:
+       * Do NOT store the base64 images in sessionStorage.
+       * They are too large and can exceed the browser
+       * storage quota.
        */
-
       sessionStorage.setItem(
         "urbanAnalysis",
-        JSON.stringify(data)
+        JSON.stringify({
+          success: data.success,
+          statistics: data.statistics,
+          area: selectedLocation,
+          ward: selectedLocation,
+        })
       );
 
     } catch (err) {
@@ -151,6 +245,23 @@ function Analysis() {
       fileInputRef.current.value = "";
     }
   };
+
+
+  // ==========================================================
+  // Helpers
+  // ==========================================================
+
+  const isTiffFile =
+    selectedFile &&
+    (
+      selectedFile.type === "image/tiff" ||
+      selectedFile.name
+        ?.toLowerCase()
+        .endsWith(".tif") ||
+      selectedFile.name
+        ?.toLowerCase()
+        .endsWith(".tiff")
+    );
 
 
   return (
@@ -200,6 +311,68 @@ function Analysis() {
           Main Workspace
           ====================================================== */}
 
+      {/* ======================================================
+          Location Selection
+          ====================================================== */}
+
+      <section className="analysis-location-section">
+
+        <div className="analysis-location-heading">
+
+          <div>
+            <span className="location-section-label">
+              ANALYSIS LOCATION
+            </span>
+
+            <h2>
+              Choose an area in Bangalore
+            </h2>
+
+            <p>
+              Select the area you want to analyze. This location
+              will be used for urban data and recommendations.
+            </p>
+          </div>
+
+        </div>
+
+        <div className="analysis-location-select-wrapper">
+
+          <select
+            className="analysis-location-select"
+            value={selectedLocation}
+            onChange={(event) => {
+              setSelectedLocation(event.target.value);
+              setError("");
+            }}
+            disabled={isLoadingLocations || isAnalyzing}
+          >
+
+            <option value="">
+              {isLoadingLocations
+                ? "Loading Bangalore areas..."
+                : "Select an area"}
+            </option>
+
+            {locations.map((location) => (
+              <option
+                key={location.ward_no}
+                value={location.ward_name}
+              >
+                {location.ward_name}
+                {location.zone
+                  ? ` — ${location.zone}`
+                  : ""}
+              </option>
+            ))}
+
+          </select>
+
+        </div>
+
+      </section>
+
+
       <section className="analysis-workspace">
 
         <div className="analysis-workspace-heading">
@@ -216,10 +389,11 @@ function Analysis() {
 
             <p>
               Select the satellite image you want to
-              analyze.
+              analyze for the selected area.
             </p>
 
           </div>
+
 
           {selectedFile && (
             <button
@@ -258,7 +432,7 @@ function Analysis() {
             <input
               ref={fileInputRef}
               type="file"
-              accept=".png,.jpg,.jpeg,image/png,image/jpeg"
+              accept=".png,.jpg,.jpeg,.tif,.tiff,image/png,image/jpeg,image/tiff"
               onChange={handleFileChange}
               hidden
             />
@@ -277,7 +451,7 @@ function Analysis() {
             </p>
 
             <span className="upload-formats">
-              PNG · JPG · JPEG
+              PNG · JPG · JPEG · TIFF
             </span>
 
           </div>
@@ -288,11 +462,40 @@ function Analysis() {
 
             <div className="preview-image-wrapper">
 
-              <img
-                src={preview}
-                alt="Satellite preview"
-                className="satellite-preview"
-              />
+              {isTiffFile && result?.images?.original ? (
+
+                <img
+                  src={result.images.original}
+                  alt="Analyzed satellite image"
+                  className="satellite-preview"
+                />
+              ) : isTiffFile ? (
+
+                <div className="tiff-preview">
+
+                  <div className="tiff-preview-icon">
+                    ◎
+                  </div>
+
+                  <strong>
+                    TIFF satellite image
+                  </strong>
+
+                  <span>
+                    Image ready for AI analysis
+                  </span>
+
+                </div>
+
+              ) : (
+
+                <img
+                  src={preview}
+                  alt="Satellite preview"
+                  className="satellite-preview"
+                />
+
+              )}
 
               <div className="preview-badge">
                 <span />
@@ -559,6 +762,182 @@ function Analysis() {
 
           </div>
 
+
+          {/* ==================================================
+              Visual Analysis
+              ================================================== */}
+
+          {result.images && (
+
+            <section className="analysis-images-section">
+
+              <div className="analysis-images-heading">
+
+                <div>
+
+                  <span className="workspace-number">
+                    03
+                  </span>
+
+                  <h3>
+                    Visual analysis
+                  </h3>
+
+                  <p>
+                    Compare the original satellite image
+                    with the AI segmentation and analysis
+                    overlay.
+                  </p>
+
+                </div>
+
+              </div>
+              
+              {/* Mask legend */}
+
+              <div className="mask-legend">
+
+                <span className="mask-legend-title">
+                  Mask legend
+                </span>
+
+                <div className="mask-legend-items">
+
+                  <div className="mask-legend-item">
+                    <span className="legend-color background" />
+                    <span>Background</span>
+                  </div>
+
+                  <div className="mask-legend-item">
+                    <span className="legend-color road" />
+                    <span>Roads</span>
+                  </div>
+
+                  <div className="mask-legend-item">
+                    <span className="legend-color building" />
+                    <span>Buildings</span>
+                  </div>
+
+                  <div className="mask-legend-item">
+                    <span className="legend-color vegetation" />
+                    <span>Vegetation</span>
+                  </div>
+
+                  <div className="mask-legend-item">
+                    <span className="legend-color water" />
+                    <span>Water</span>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div className="analysis-images-grid">
+
+                {/* --------------------------------------------
+                    Original
+                    -------------------------------------------- */}
+
+                <div className="analysis-image-card">
+
+                  <div className="analysis-image-header">
+
+                    <div>
+                      <h3>
+                        Original image
+                      </h3>
+
+                      <span>
+                        Satellite
+                      </span>
+                    </div>
+
+                  </div>
+
+
+                  <div className="analysis-image-wrapper">
+
+                    <img
+                      src={result.images.original}
+                      alt="Original satellite image"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                {/* --------------------------------------------
+                    Segmentation Mask
+                    -------------------------------------------- */}
+
+                <div className="analysis-image-card">
+
+                  <div className="analysis-image-header">
+
+                    <div>
+                      <h3>
+                        Segmentation mask
+                      </h3>
+
+                      <span>
+                        AI classification
+                      </span>
+                    </div>
+
+                  </div>
+
+
+                  <div className="analysis-image-wrapper">
+
+                    <img
+                      src={result.images.mask}
+                      alt="AI segmentation mask"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                {/* --------------------------------------------
+                    Overlay
+                    -------------------------------------------- */}
+
+                <div className="analysis-image-card">
+
+                  <div className="analysis-image-header">
+
+                    <div>
+                      <h3>
+                        Analysis overlay
+                      </h3>
+
+                      <span>
+                        Combined view
+                      </span>
+                    </div>
+
+                  </div>
+
+
+                  <div className="analysis-image-wrapper">
+
+                    <img
+                      src={result.images.overlay}
+                      alt="Satellite analysis overlay"
+                    />
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
+          )}
+
         </section>
 
       )}
@@ -581,18 +960,17 @@ function LandCoverCard({
     <div className="land-cover-card">
 
       <div
-        className={
-          `land-cover-symbol ${className}`
-        }
+        className={`land-cover-symbol ${className}`}
+        aria-hidden="true"
       />
 
-      <div>
+      <div className="land-cover-content">
 
-        <span>
+        <span className="land-cover-name">
           {name}
         </span>
 
-        <strong>
+        <strong className="land-cover-value">
           {formatPercentage(value)}
         </strong>
 

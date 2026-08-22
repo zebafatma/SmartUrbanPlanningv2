@@ -12,6 +12,7 @@ Provides:
 """
 
 from fastapi import APIRouter, HTTPException
+import numpy as np
 
 from backend.recommendation.traffic import TrafficAnalyzer
 from backend.recommendation.population import PopulationAnalyzer
@@ -44,6 +45,29 @@ accident_analyzer = AccidentAnalyzer()
 
 amenity_analyzer = AmenityAnalyzer()
 
+# ==========================================================
+# Available Locations
+# ==========================================================
+
+@router.get("/locations")
+def get_locations():
+    """
+    Retrieve available Bangalore areas/wards.
+    """
+
+    try:
+
+        return {
+            "success": True,
+            "locations": population_analyzer.get_locations(),
+        }
+
+    except Exception as exc:
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to retrieve locations: {exc}",
+        ) from exc
 
 # ==========================================================
 # Urban Data
@@ -165,12 +189,34 @@ def _serialize(value):
     if value is None:
         return None
 
+    # ------------------------------------------------------
+    # NumPy scalar values
+    # ------------------------------------------------------
+
+    if isinstance(value, np.generic):
+        return value.item()
+
+    # ------------------------------------------------------
+    # NumPy arrays
+    # ------------------------------------------------------
+
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+
+    # ------------------------------------------------------
+    # Dictionary
+    # ------------------------------------------------------
+
     if isinstance(value, dict):
 
         return {
             key: _serialize(item)
             for key, item in value.items()
         }
+
+    # ------------------------------------------------------
+    # List
+    # ------------------------------------------------------
 
     if isinstance(value, list):
 
@@ -179,6 +225,21 @@ def _serialize(value):
             for item in value
         ]
 
+    # ------------------------------------------------------
+    # Tuple
+    # ------------------------------------------------------
+
+    if isinstance(value, tuple):
+
+        return [
+            _serialize(item)
+            for item in value
+        ]
+
+    # ------------------------------------------------------
+    # Dataclass / custom object
+    # ------------------------------------------------------
+
     if hasattr(value, "__dict__"):
 
         return {
@@ -186,5 +247,9 @@ def _serialize(value):
             for key, item in vars(value).items()
             if not key.startswith("_")
         }
+
+    # ------------------------------------------------------
+    # Normal Python value
+    # ------------------------------------------------------
 
     return value
