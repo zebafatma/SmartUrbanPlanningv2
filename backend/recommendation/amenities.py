@@ -61,32 +61,20 @@ class AmenityAnalyzer:
         amenity_name: str,
     ) -> AmenityFeatures:
 
-        gdf = self.loader.load_amenity(
-            amenity_name
-        )
+        gdf = self.loader.load_amenity(amenity_name)
 
         if gdf.empty:
-            raise ValueError(
-                f"{amenity_name} dataset is empty."
-            )
+            raise ValueError(f"{amenity_name} dataset is empty.")
 
-        geometry_type = (
-            gdf.geometry.iloc[0].geom_type
-        )
+        geometry_type = gdf.geometry.iloc[0].geom_type
 
-        bounds = tuple(
-            gdf.total_bounds
-        )
+        bounds = tuple(gdf.total_bounds)
 
         # Use bounding-box center instead of
         # expensive unary_union.
-        centroid_longitude = (
-            bounds[0] + bounds[2]
-        ) / 2
+        centroid_longitude = (bounds[0] + bounds[2]) / 2
 
-        centroid_latitude = (
-            bounds[1] + bounds[3]
-        ) / 2
+        centroid_latitude = (bounds[1] + bounds[3]) / 2
 
         return AmenityFeatures(
             amenity_name=amenity_name,

@@ -120,9 +120,7 @@ class PopulationAnalyzer:
                     "Ward Name",
                 ]
             )
-            .drop_duplicates(
-                subset=["Ward_No"]
-            )
+            .drop_duplicates(subset=["Ward_No"])
             .sort_values("Ward_No")
         )
 
@@ -134,6 +132,7 @@ class PopulationAnalyzer:
             }
             for _, row in locations.iterrows()
         ]
+
     # ======================================================
     # Infrastructure Score
     # ======================================================

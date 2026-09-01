@@ -6,7 +6,6 @@ Central configuration file for the entire project.
 
 from pathlib import Path
 
-
 # ==========================================================
 # PROJECT PATHS
 # ==========================================================
@@ -115,13 +114,9 @@ MIN_LEARNING_RATE = 1e-6
 # MODEL SAVING
 # ==========================================================
 
-BEST_MODEL_PATH = (
-    CHECKPOINT_DIR / "best_model.keras"
-)
+BEST_MODEL_PATH = CHECKPOINT_DIR / "best_model.keras"
 
-FINAL_MODEL_PATH = (
-    CHECKPOINT_DIR / "final_model.keras"
-)
+FINAL_MODEL_PATH = CHECKPOINT_DIR / "final_model.keras"
 
 
 # ==========================================================

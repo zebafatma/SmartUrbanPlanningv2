@@ -10,7 +10,6 @@ rule-based planning recommendations.
 from dataclasses import dataclass
 from typing import List
 
-
 # ==========================================================
 # Recommendation
 # ==========================================================
@@ -113,8 +112,7 @@ class RecommendationEngine:
         }
 
         recommendations.sort(
-            key=lambda item:
-            priority_order.get(
+            key=lambda item: priority_order.get(
                 item.priority,
                 4,
             )
@@ -525,9 +523,7 @@ class RecommendationEngine:
         # Hospitals
         # --------------------------------------------------
 
-        hospitals = amenities.get(
-            "Hospitals"
-        )
+        hospitals = amenities.get("Hospitals")
 
         if hospitals and hospitals.total_features == 0:
 
@@ -551,9 +547,7 @@ class RecommendationEngine:
         # Schools
         # --------------------------------------------------
 
-        schools = amenities.get(
-            "Schools"
-        )
+        schools = amenities.get("Schools")
 
         if schools and schools.total_features == 0:
 
@@ -576,9 +570,7 @@ class RecommendationEngine:
         # Bus Stops
         # --------------------------------------------------
 
-        bus_stops = amenities.get(
-            "Bus Stops"
-        )
+        bus_stops = amenities.get("Bus Stops")
 
         if bus_stops and bus_stops.total_features == 0:
 

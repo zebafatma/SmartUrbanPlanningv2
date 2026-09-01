@@ -7,10 +7,20 @@ Attention ResUNet Architecture
 from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
 
-from backend.configs.config import (BASE_FILTERS, IMAGE_CHANNELS, IMAGE_HEIGHT,
-                            IMAGE_WIDTH, NUM_CLASSES, USE_ATTENTION)
-from backend.model.blocks import (bottleneck_block, decoder_block, encoder_block,
-                          output_block)
+from backend.configs.config import (
+    BASE_FILTERS,
+    IMAGE_CHANNELS,
+    IMAGE_HEIGHT,
+    IMAGE_WIDTH,
+    NUM_CLASSES,
+    USE_ATTENTION,
+)
+from backend.model.blocks import (
+    bottleneck_block,
+    decoder_block,
+    encoder_block,
+    output_block,
+)
 
 
 def build_attention_resunet():

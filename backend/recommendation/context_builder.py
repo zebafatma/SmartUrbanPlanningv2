@@ -90,7 +90,6 @@ class ContextBuilder:
         traffic = self.traffic.analyze(area_name)
         print("CONTEXT: traffic done")
 
-
         print("CONTEXT: population start")
         # -----------------------------------------
         # Population
@@ -98,7 +97,6 @@ class ContextBuilder:
 
         population = self.population.analyze(ward_name)
         print("CONTEXT: population done")
-
 
         print("CONTEXT: weather start")
         # -----------------------------------------
@@ -118,7 +116,6 @@ class ContextBuilder:
         # -----------------------------------------
         print("CONTEXT: weather done")
 
-
         print("CONTEXT: accidents start")
         if accident_year is None:
 
@@ -132,7 +129,6 @@ class ContextBuilder:
         # Amenities
         # -----------------------------------------
         print("CONTEXT: accidents done")
-
 
         print("CONTEXT: amenities start")
         print("HOSPITALS start")
@@ -163,7 +159,6 @@ class ContextBuilder:
             "Parks": parks,
         }
         print("CONTEXT: amenities done")
-
 
         print("CONTEXT: building UrbanContext")
         return UrbanContext(

@@ -16,10 +16,21 @@ Contains:
 
 import tensorflow as tf
 from tensorflow.keras.initializers import HeNormal
-from tensorflow.keras.layers import (Activation, Add, BatchNormalization,
-                                     Concatenate, Conv2D, Conv2DTranspose,
-                                     Dense, Dropout, GlobalAveragePooling2D,
-                                     Input, MaxPooling2D, Multiply, Reshape)
+from tensorflow.keras.layers import (
+    Activation,
+    Add,
+    BatchNormalization,
+    Concatenate,
+    Conv2D,
+    Conv2DTranspose,
+    Dense,
+    Dropout,
+    GlobalAveragePooling2D,
+    Input,
+    MaxPooling2D,
+    Multiply,
+    Reshape,
+)
 from tensorflow.keras.regularizers import l2
 
 from backend.configs.config import DROPOUT_RATE, L2_REGULARIZATION

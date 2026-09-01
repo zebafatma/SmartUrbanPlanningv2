@@ -4,12 +4,21 @@ callbacks.py
 Training callbacks.
 """
 
-from tensorflow.keras.callbacks import (CSVLogger, EarlyStopping,
-                                        ModelCheckpoint, ReduceLROnPlateau,
-                                        TensorBoard)
+from tensorflow.keras.callbacks import (
+    CSVLogger,
+    EarlyStopping,
+    ModelCheckpoint,
+    ReduceLROnPlateau,
+    TensorBoard,
+)
 
-from backend.configs.config import (BEST_MODEL_PATH, EARLY_STOPPING_PATIENCE, LOG_DIR,
-                            MIN_LEARNING_RATE, REDUCE_LR_PATIENCE)
+from backend.configs.config import (
+    BEST_MODEL_PATH,
+    EARLY_STOPPING_PATIENCE,
+    LOG_DIR,
+    MIN_LEARNING_RATE,
+    REDUCE_LR_PATIENCE,
+)
 
 
 def get_callbacks():

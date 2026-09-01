@@ -9,7 +9,6 @@ from fastapi import APIRouter
 
 from backend.recommendation.data_loader import ExternalDataLoader
 
-
 # ==========================================================
 # Router
 # ==========================================================
@@ -31,6 +30,7 @@ loader = ExternalDataLoader()
 # Locations
 # ==========================================================
 
+
 @router.get("/")
 def get_locations():
 
@@ -50,9 +50,7 @@ def get_locations():
                 "ward_name",
             ]
         )
-        .to_dict(
-            orient="records"
-        )
+        .to_dict(orient="records")
     )
 
     return {

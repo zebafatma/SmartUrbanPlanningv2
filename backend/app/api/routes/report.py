@@ -9,7 +9,6 @@ from pydantic import BaseModel
 
 from backend.recommendation.context_builder import ContextBuilder
 
-
 # ==========================================================
 # Router
 # ==========================================================
@@ -23,6 +22,7 @@ router = APIRouter(
 # ==========================================================
 # Request Model
 # ==========================================================
+
 
 class ReportRequest(BaseModel):
 
@@ -48,6 +48,7 @@ context_builder = ContextBuilder()
 # Generate Report Data
 # ==========================================================
 
+
 @router.post("/")
 def generate_report(
     request: ReportRequest,
@@ -62,49 +63,27 @@ def generate_report(
     try:
 
         context = context_builder.build(
-
-            segmentation_statistics=(
-                request.segmentation_statistics
-            ),
-
+            segmentation_statistics=(request.segmentation_statistics),
             area_name=request.area,
-
             ward_name=request.ward,
-
             weather_date=request.weather_date,
-
             accident_year=request.accident_year,
-
         )
 
-        report_data = ContextBuilder.to_dict(
-            context
-        )
+        report_data = ContextBuilder.to_dict(context)
 
         return {
-
             "success": True,
-
             "report": {
-
                 "area": request.area,
-
                 "ward": request.ward,
-
                 "data": report_data,
-
             },
-
         }
 
     except Exception as exc:
 
         raise HTTPException(
-
             status_code=500,
-
-            detail=(
-                f"Failed to generate report: {exc}"
-            ),
-
+            detail=(f"Failed to generate report: {exc}"),
         ) from exc

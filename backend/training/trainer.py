@@ -23,7 +23,6 @@ from backend.model.factory import build_model
 from backend.training.callbacks import get_callbacks
 from backend.training.optimizer import get_optimizer
 
-
 # ==========================================================
 # Training Backup
 # ==========================================================

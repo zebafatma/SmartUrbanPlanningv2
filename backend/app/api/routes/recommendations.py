@@ -10,7 +10,6 @@ from pydantic import BaseModel
 from backend.recommendation.context_builder import ContextBuilder
 from backend.recommendation.report import RecommendationEngine
 
-
 # ==========================================================
 # Router
 # ==========================================================
@@ -24,6 +23,7 @@ router = APIRouter(
 # ==========================================================
 # Request Model
 # ==========================================================
+
 
 class RecommendationRequest(BaseModel):
     area: str
@@ -41,6 +41,7 @@ recommendation_engine = RecommendationEngine()
 # ==========================================================
 # Generate Recommendations
 # ==========================================================
+
 
 @router.post("/")
 def get_recommendations(
@@ -65,9 +66,7 @@ def get_recommendations(
 
         print("3. Context built")
 
-        recommendations = recommendation_engine.generate(
-            context
-        )
+        recommendations = recommendation_engine.generate(context)
 
         print("4. Recommendations generated")
         print("Recommendations:", recommendations)
@@ -76,9 +75,7 @@ def get_recommendations(
             "success": True,
             "area": request.area,
             "ward": request.ward,
-            "recommendations": _serialize(
-                recommendations
-            ),
+            "recommendations": _serialize(recommendations),
         }
 
         print("5. Response ready")
@@ -96,9 +93,11 @@ def get_recommendations(
             detail=f"Failed to generate recommendations: {exc}",
         ) from exc
 
+
 # ==========================================================
 # Serialization
 # ==========================================================
+
 
 def _serialize(value):
 
@@ -107,17 +106,11 @@ def _serialize(value):
 
     if isinstance(value, dict):
 
-        return {
-            key: _serialize(item)
-            for key, item in value.items()
-        }
+        return {key: _serialize(item) for key, item in value.items()}
 
     if isinstance(value, list):
 
-        return [
-            _serialize(item)
-            for item in value
-        ]
+        return [_serialize(item) for item in value]
 
     if hasattr(value, "__dict__"):
 

@@ -11,15 +11,14 @@ Provides:
 - Amenity information
 """
 
-from fastapi import APIRouter, HTTPException
 import numpy as np
+from fastapi import APIRouter, HTTPException
 
-from backend.recommendation.traffic import TrafficAnalyzer
-from backend.recommendation.population import PopulationAnalyzer
-from backend.recommendation.weather import WeatherAnalyzer
 from backend.recommendation.accidents import AccidentAnalyzer
 from backend.recommendation.amenities import AmenityAnalyzer
-
+from backend.recommendation.population import PopulationAnalyzer
+from backend.recommendation.traffic import TrafficAnalyzer
+from backend.recommendation.weather import WeatherAnalyzer
 
 # ==========================================================
 # Router
@@ -49,6 +48,7 @@ amenity_analyzer = AmenityAnalyzer()
 # Available Locations
 # ==========================================================
 
+
 @router.get("/locations")
 def get_locations():
     """
@@ -69,9 +69,11 @@ def get_locations():
             detail=f"Failed to retrieve locations: {exc}",
         ) from exc
 
+
 # ==========================================================
 # Urban Data
 # ==========================================================
+
 
 @router.get("/")
 def get_urban_data(
@@ -89,17 +91,13 @@ def get_urban_data(
         # Traffic
         # --------------------------------------------------
         print("Traffic")
-        traffic = traffic_analyzer.analyze(
-            area
-        )
+        traffic = traffic_analyzer.analyze(area)
         print("traffic")
         # --------------------------------------------------
         # Population
         # --------------------------------------------------
         print("popluation s")
-        population = population_analyzer.analyze(
-            ward
-        )
+        population = population_analyzer.analyze(ward)
         print("population e")
 
         # --------------------------------------------------
@@ -148,41 +146,28 @@ def get_urban_data(
         }
         print("amneties e")
         return {
-
             "success": True,
-
             "area": area,
-
             "ward": ward,
-
             "traffic": _serialize(traffic),
-
             "population": _serialize(population),
-
             "weather": _serialize(weather),
-
             "accidents": _serialize(accidents),
-
             "amenities": _serialize(amenities),
-
         }
 
     except Exception as exc:
 
         raise HTTPException(
-
             status_code=500,
-
-            detail=(
-                f"Failed to retrieve urban data: {exc}"
-            ),
-
+            detail=(f"Failed to retrieve urban data: {exc}"),
         ) from exc
 
 
 # ==========================================================
 # Serialization
 # ==========================================================
+
 
 def _serialize(value):
 
@@ -209,10 +194,7 @@ def _serialize(value):
 
     if isinstance(value, dict):
 
-        return {
-            key: _serialize(item)
-            for key, item in value.items()
-        }
+        return {key: _serialize(item) for key, item in value.items()}
 
     # ------------------------------------------------------
     # List
@@ -220,10 +202,7 @@ def _serialize(value):
 
     if isinstance(value, list):
 
-        return [
-            _serialize(item)
-            for item in value
-        ]
+        return [_serialize(item) for item in value]
 
     # ------------------------------------------------------
     # Tuple
@@ -231,10 +210,7 @@ def _serialize(value):
 
     if isinstance(value, tuple):
 
-        return [
-            _serialize(item)
-            for item in value
-        ]
+        return [_serialize(item) for item in value]
 
     # ------------------------------------------------------
     # Dataclass / custom object

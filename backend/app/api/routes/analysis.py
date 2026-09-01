@@ -13,7 +13,6 @@ from fastapi import APIRouter, File, HTTPException, UploadFile
 from backend.configs.config import BEST_MODEL_PATH
 from backend.prediction.utils import PredictionPipeline
 
-
 # ==========================================================
 # Router
 # ==========================================================
@@ -40,14 +39,13 @@ UPLOAD_DIR.mkdir(
 # Prediction Pipeline
 # ==========================================================
 
-pipeline = PredictionPipeline(
-    model_path=BEST_MODEL_PATH
-)
+pipeline = PredictionPipeline(model_path=BEST_MODEL_PATH)
 
 
 # ==========================================================
 # Analyze Image
 # ==========================================================
+
 
 @router.post("/analyze")
 async def analyze_image(
@@ -75,28 +73,20 @@ async def analyze_image(
         ".tiff",
     }
 
-    file_extension = Path(
-        file.filename or ""
-    ).suffix.lower()
+    file_extension = Path(file.filename or "").suffix.lower()
 
     if file_extension not in allowed_extensions:
 
         raise HTTPException(
             status_code=400,
-            detail=(
-                "Unsupported image format. "
-                "Use JPG, JPEG, PNG, TIF, or TIFF."
-            ),
+            detail=("Unsupported image format. " "Use JPG, JPEG, PNG, TIF, or TIFF."),
         )
 
     # ------------------------------------------------------
     # Save uploaded image
     # ------------------------------------------------------
 
-    file_name = (
-        f"{uuid4().hex}"
-        f"{file_extension}"
-    )
+    file_name = f"{uuid4().hex}" f"{file_extension}"
 
     image_path = UPLOAD_DIR / file_name
 
@@ -110,58 +100,37 @@ async def analyze_image(
         # Run prediction
         # --------------------------------------------------
 
-        result = pipeline.run(
-            image_path
-        )
+        result = pipeline.run(image_path)
 
         # --------------------------------------------------
         # Convert images to base64
         # --------------------------------------------------
 
-        original_image = _image_to_base64(
-            result["original_image"]
-        )
+        original_image = _image_to_base64(result["original_image"])
 
-        colored_mask = _image_to_base64(
-            result["colored_mask"]
-        )
+        colored_mask = _image_to_base64(result["colored_mask"])
 
-        overlay_image = _image_to_base64(
-            result["overlay_image"]
-        )
+        overlay_image = _image_to_base64(result["overlay_image"])
 
         # --------------------------------------------------
         # Response
         # --------------------------------------------------
 
         return {
-
             "success": True,
-
-            "statistics": result[
-                "statistics"
-            ],
-
+            "statistics": result["statistics"],
             "images": {
-
                 "original": original_image,
-
                 "mask": colored_mask,
-
                 "overlay": overlay_image,
-
             },
-
         }
 
     except Exception as exc:
 
         raise HTTPException(
-
             status_code=500,
-
             detail=f"Image analysis failed: {exc}",
-
         ) from exc
 
     finally:
@@ -178,6 +147,7 @@ async def analyze_image(
 # ==========================================================
 # Image → Base64
 # ==========================================================
+
 
 def _image_to_base64(image) -> str:
     """
@@ -196,15 +166,8 @@ def _image_to_base64(image) -> str:
 
     if not success:
 
-        raise ValueError(
-            "Failed to encode image."
-        )
+        raise ValueError("Failed to encode image.")
 
-    encoded = base64.b64encode(
-        encoded_image.tobytes()
-    ).decode("utf-8")
+    encoded = base64.b64encode(encoded_image.tobytes()).decode("utf-8")
 
-    return (
-        "data:image/png;base64,"
-        + encoded
-    )
+    return "data:image/png;base64," + encoded

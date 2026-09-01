@@ -9,9 +9,15 @@ from pathlib import Path
 import numpy as np
 import tensorflow as tf
 
-from backend.configs.config import (BATCH_SIZE, IMAGE_CHANNELS, IMAGE_HEIGHT,
-                            IMAGE_WIDTH, SHUFFLE_BUFFER_SIZE, USE_CACHE,
-                            USE_PREFETCH)
+from backend.configs.config import (
+    BATCH_SIZE,
+    IMAGE_CHANNELS,
+    IMAGE_HEIGHT,
+    IMAGE_WIDTH,
+    SHUFFLE_BUFFER_SIZE,
+    USE_CACHE,
+    USE_PREFETCH,
+)
 from backend.data_pipeline.augmentation import augment
 from backend.data_pipeline.io import load_sample
 from backend.data_pipeline.preprocessing import preprocess_sample
