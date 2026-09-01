@@ -23,11 +23,14 @@ from backend.model.factory import build_model
 from backend.training.callbacks import get_callbacks
 from backend.training.optimizer import get_optimizer
 
+
 # ==========================================================
 # Training Backup
 # ==========================================================
 
-BACKUP_DIR = Path("checkpoints/training_backup")
+# Use a fresh backup directory for the resumed training run.
+# The previous backup is kept untouched as a safety copy.
+BACKUP_DIR = Path("checkpoints/training_backup_resume")
 
 
 class Trainer:

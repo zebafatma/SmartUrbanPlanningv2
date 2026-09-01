@@ -32,6 +32,7 @@ class ExternalDataLoader:
         self._weather = None
         self._accidents = None
         self._wards = None
+        self._location_mapping = None
 
         self._amenities = {}
 
@@ -126,6 +127,20 @@ class ExternalDataLoader:
             )
 
         return self._wards
+
+    # =====================================================
+    # Location Mapping
+    # =====================================================
+
+    def load_location_mapping(self):
+
+        if self._location_mapping is None:
+
+            self._location_mapping = self._load_csv(
+                self.base_path / "mapping" / "location_mapping.csv"
+            )
+
+        return self._location_mapping
 
     # =====================================================
     # Amenities

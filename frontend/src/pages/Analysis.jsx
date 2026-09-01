@@ -27,8 +27,10 @@ function Analysis() {
   useEffect(() => {
     const loadLocations = async () => {
       try {
+        setIsLoadingLocations(true);
+
         const response = await fetch(
-          "http://127.0.0.1:8000/api/urban-data/locations"
+          "http://127.0.0.1:8000/api/locations/"
         );
 
         const data = await response.json();
@@ -52,8 +54,6 @@ function Analysis() {
 
     loadLocations();
   }, []);
-
-
 
   // ==========================================================
   // File Selection
@@ -115,11 +115,9 @@ function Analysis() {
     setError("");
   };
 
-
   const handleFileChange = (event) => {
     handleFile(event.target.files[0]);
   };
-
 
   // ==========================================================
   // Drag & Drop
@@ -131,11 +129,9 @@ function Analysis() {
     setIsDragging(true);
   };
 
-
   const handleDragLeave = () => {
     setIsDragging(false);
   };
-
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -146,7 +142,6 @@ function Analysis() {
 
     handleFile(file);
   };
-
 
   // ==========================================================
   // Analyze
@@ -195,6 +190,25 @@ function Analysis() {
       setResult(data);
 
       /*
+       * Find the selected mapped location.
+       *
+       * The dropdown displays area_name, but the mapping
+       * also contains the corresponding ward_name.
+       */
+      const selectedMapping = locations.find(
+        (location) =>
+          location.area_name === selectedLocation
+      );
+
+      const selectedArea =
+        selectedMapping?.area_name ||
+        selectedLocation;
+
+      const selectedWard =
+        selectedMapping?.ward_name ||
+        selectedLocation;
+
+      /*
        * Keep the latest analysis available for
        * Dashboard / Recommendations later.
        *
@@ -208,8 +222,8 @@ function Analysis() {
         JSON.stringify({
           success: data.success,
           statistics: data.statistics,
-          area: selectedLocation,
-          ward: selectedLocation,
+          area: selectedArea,
+          ward: selectedWard,
         })
       );
 
@@ -222,7 +236,6 @@ function Analysis() {
       setIsAnalyzing(false);
     }
   };
-
 
   // ==========================================================
   // Remove Image
@@ -246,7 +259,6 @@ function Analysis() {
     }
   };
 
-
   // ==========================================================
   // Helpers
   // ==========================================================
@@ -263,6 +275,35 @@ function Analysis() {
         .endsWith(".tiff")
     );
 
+  /*
+   * The mapping can contain multiple rows for the same area.
+   *
+   * Example:
+   *
+   * Whitefield -> Ward A
+   * Whitefield -> Ward B
+   * Whitefield -> Ward C
+   *
+   * We keep all rows inside `locations` because they are
+   * important for the backend mapping.
+   *
+   * But the dropdown should only show Whitefield once.
+   */
+  const uniqueLocations = Array.from(
+    new Map(
+      locations
+        .filter(
+          (location) =>
+            location.area_name
+        )
+        .map(
+          (location) => [
+            location.area_name,
+            location,
+          ]
+        )
+    ).values()
+  );
 
   return (
     <main className="analysis-page">
@@ -320,6 +361,7 @@ function Analysis() {
         <div className="analysis-location-heading">
 
           <div>
+
             <span className="location-section-label">
               ANALYSIS LOCATION
             </span>
@@ -332,9 +374,11 @@ function Analysis() {
               Select the area you want to analyze. This location
               will be used for urban data and recommendations.
             </p>
+
           </div>
 
         </div>
+
 
         <div className="analysis-location-select-wrapper">
 
@@ -345,7 +389,10 @@ function Analysis() {
               setSelectedLocation(event.target.value);
               setError("");
             }}
-            disabled={isLoadingLocations || isAnalyzing}
+            disabled={
+              isLoadingLocations ||
+              isAnalyzing
+            }
           >
 
             <option value="">
@@ -354,17 +401,16 @@ function Analysis() {
                 : "Select an area"}
             </option>
 
-            {locations.map((location) => (
-              <option
-                key={location.ward_no}
-                value={location.ward_name}
-              >
-                {location.ward_name}
-                {location.zone
-                  ? ` — ${location.zone}`
-                  : ""}
-              </option>
-            ))}
+            {uniqueLocations.map(
+              (location) => (
+                <option
+                  key={location.area_name}
+                  value={location.area_name}
+                >
+                  {location.area_name}
+                </option>
+              )
+            )}
 
           </select>
 
@@ -469,6 +515,7 @@ function Analysis() {
                   alt="Analyzed satellite image"
                   className="satellite-preview"
                 />
+
               ) : isTiffFile ? (
 
                 <div className="tiff-preview">
@@ -792,7 +839,8 @@ function Analysis() {
                 </div>
 
               </div>
-              
+
+
               {/* Mask legend */}
 
               <div className="mask-legend">
@@ -831,6 +879,7 @@ function Analysis() {
                 </div>
 
               </div>
+
 
               <div className="analysis-images-grid">
 

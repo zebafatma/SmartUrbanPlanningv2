@@ -11,6 +11,7 @@ from backend.app.api.routes.urban_data import router as urban_data_router
 from backend.app.api.routes.recommendations import (
     router as recommendations_router,
 )
+from backend.app.api.routes.locations import router as locations_router
 from backend.app.api.routes.report import router as report_router
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -47,6 +48,8 @@ app.include_router(urban_data_router)
 app.include_router(recommendations_router)
 
 app.include_router(report_router)
+
+app.include_router(locations_router)
 
 
 # ==========================================================
