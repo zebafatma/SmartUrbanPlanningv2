@@ -41,7 +41,13 @@ class ReportRequest(BaseModel):
 # Context Builder
 # ==========================================================
 
-context_builder = ContextBuilder()
+from functools import lru_cache
+
+
+@lru_cache(maxsize=1)
+def _context_builder():
+    # Created on first request so the API starts without data/external.
+    return ContextBuilder()
 
 
 # ==========================================================
@@ -62,7 +68,7 @@ def generate_report(
 
     try:
 
-        context = context_builder.build(
+        context = _context_builder().build(
             segmentation_statistics=(request.segmentation_statistics),
             area_name=request.area,
             ward_name=request.ward,

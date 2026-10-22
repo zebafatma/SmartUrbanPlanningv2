@@ -4,6 +4,8 @@ main.py
 FastAPI application entry point.
 """
 
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -25,9 +27,17 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
+    # Local dev origins plus any deployed frontend URLs given in the
+    # FRONTEND_ORIGINS environment variable (comma-separated), e.g.
+    # FRONTEND_ORIGINS=https://smart-urban-planning.vercel.app
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        *[
+            origin.strip().rstrip("/")
+            for origin in os.getenv("FRONTEND_ORIGINS", "").split(",")
+            if origin.strip()
+        ],
     ],
     allow_credentials=True,
     allow_methods=["*"],

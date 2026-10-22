@@ -10,7 +10,7 @@ from uuid import uuid4
 import cv2
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
-from backend.configs.config import BEST_MODEL_PATH
+from backend.configs.config import BEST_MODEL_PATH, ROOT_DIR
 from backend.prediction.utils import PredictionPipeline
 
 # ==========================================================
@@ -27,7 +27,7 @@ router = APIRouter(
 # Directories
 # ==========================================================
 
-UPLOAD_DIR = Path("backend/uploads")
+UPLOAD_DIR = ROOT_DIR / "backend" / "uploads"
 
 UPLOAD_DIR.mkdir(
     parents=True,

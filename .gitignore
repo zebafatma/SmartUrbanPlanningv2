@@ -16,8 +16,12 @@ __pycache__/
 logs/
 
 
-# Dataset
-data/
+# Dataset (training images/labels stay local; data/external is needed by the API)
+data/*
+!data/external/
+
+# Runtime uploads
+backend/uploads/
 
 # OS
 .DS_Store
