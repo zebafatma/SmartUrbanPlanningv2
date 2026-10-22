@@ -34,15 +34,21 @@ router = APIRouter(
 # Analyzers
 # ==========================================================
 
-traffic_analyzer = TrafficAnalyzer()
+# Analyzers are created on first use (not at import time), so the API can
+# start and serve /api/analyze even if data/external is not present yet.
 
-population_analyzer = PopulationAnalyzer()
+from functools import lru_cache
 
-weather_analyzer = WeatherAnalyzer()
 
-accident_analyzer = AccidentAnalyzer()
-
-amenity_analyzer = AmenityAnalyzer()
+@lru_cache(maxsize=1)
+def _analyzers():
+    return {
+        "traffic": TrafficAnalyzer(),
+        "population": PopulationAnalyzer(),
+        "weather": WeatherAnalyzer(),
+        "accidents": AccidentAnalyzer(),
+        "amenities": AmenityAnalyzer(),
+    }
 
 # ==========================================================
 # Available Locations
@@ -59,7 +65,7 @@ def get_locations():
 
         return {
             "success": True,
-            "locations": population_analyzer.get_locations(),
+            "locations": _analyzers()["population"].get_locations(),
         }
 
     except Exception as exc:
@@ -91,26 +97,26 @@ def get_urban_data(
         # Traffic
         # --------------------------------------------------
         print("Traffic")
-        traffic = traffic_analyzer.analyze(area)
+        traffic = _analyzers()["traffic"].analyze(area)
         print("traffic")
         # --------------------------------------------------
         # Population
         # --------------------------------------------------
         print("popluation s")
-        population = population_analyzer.analyze(ward)
+        population = _analyzers()["population"].analyze(ward)
         print("population e")
 
         # --------------------------------------------------
         # Weather
         # --------------------------------------------------
         print("weather s")
-        weather = weather_analyzer.latest()
+        weather = _analyzers()["weather"].latest()
         print("weather e")
         # --------------------------------------------------
         # Accidents
         # --------------------------------------------------
         print("accisdents s")
-        accidents = accident_analyzer.latest()
+        accidents = _analyzers()["accidents"].latest()
         print("accidents e")
         # --------------------------------------------------
         # Amenities
@@ -118,23 +124,23 @@ def get_urban_data(
         print("amneties s")
 
         print("hospitals s")
-        hospitals = amenity_analyzer.analyze("hospitals")
+        hospitals = _analyzers()["amenities"].analyze("hospitals")
         print("hospitals e")
 
         print("schools s")
-        schools = amenity_analyzer.analyze("schools")
+        schools = _analyzers()["amenities"].analyze("schools")
         print("schools e")
 
         print("bus stops s")
-        bus_stops = amenity_analyzer.analyze("bus_stops")
+        bus_stops = _analyzers()["amenities"].analyze("bus_stops")
         print("bus stops e")
 
         print("metro s")
-        metro = amenity_analyzer.analyze("metro")
+        metro = _analyzers()["amenities"].analyze("metro")
         print("metro e")
 
         print("parks s")
-        parks = amenity_analyzer.analyze("parks")
+        parks = _analyzers()["amenities"].analyze("parks")
         print("parks e")
 
         amenities = {

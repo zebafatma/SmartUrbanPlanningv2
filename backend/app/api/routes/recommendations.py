@@ -35,7 +35,15 @@ class RecommendationRequest(BaseModel):
 # Context Builder
 # ==========================================================
 
-context_builder = ContextBuilder()
+from functools import lru_cache
+
+
+@lru_cache(maxsize=1)
+def _context_builder():
+    # Created on first request so the API starts without data/external.
+    return ContextBuilder()
+
+
 recommendation_engine = RecommendationEngine()
 
 # ==========================================================
@@ -58,7 +66,7 @@ def get_recommendations(
 
         print("2. Building context")
 
-        context = context_builder.build(
+        context = _context_builder().build(
             segmentation_statistics=request.segmentation_statistics,
             area_name=request.area,
             ward_name=request.ward,

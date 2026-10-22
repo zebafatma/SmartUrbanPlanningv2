@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { analyzeImage } from "../services/api";
+import { analyzeImage, API_URL } from "../services/api";
 import "./Analysis.css";
 
 function Analysis() {
@@ -30,7 +30,7 @@ function Analysis() {
         setIsLoadingLocations(true);
 
         const response = await fetch(
-          "http://127.0.0.1:8000/api/locations/"
+          `${API_URL}/api/locations/`
         );
 
         const data = await response.json();

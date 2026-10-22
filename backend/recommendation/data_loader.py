@@ -9,6 +9,8 @@ from pathlib import Path
 import geopandas as gpd
 import pandas as pd
 
+from backend.configs.config import DATA_DIR
+
 
 class ExternalDataLoader:
     """
@@ -25,7 +27,7 @@ class ExternalDataLoader:
 
     def __init__(self):
 
-        self.base_path = Path("data/external")
+        self.base_path = DATA_DIR / "external"
 
         self._traffic = None
         self._population = None

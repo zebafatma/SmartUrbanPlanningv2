@@ -28,8 +28,6 @@ image-classifiers
 
 efficientnet
 
-tensorflow-addons
-
 tensorboard
 
 jupyter

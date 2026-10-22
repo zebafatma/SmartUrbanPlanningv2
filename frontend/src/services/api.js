@@ -1,4 +1,8 @@
-const API_URL = "http://127.0.0.1:8000";
+// Backend URL. Set VITE_API_URL when building for production
+// (e.g. on Vercel); falls back to the local FastAPI server.
+export const API_URL = (
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+).replace(/\/$/, "");
 
 
 // ==========================================================

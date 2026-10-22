@@ -1,0 +1,13 @@
+# Packages needed to run the FastAPI backend (inference + analytics only).
+# Training dependencies stay in requirements.txt.
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+tensorflow-cpu==2.20.0
+keras==3.11.3
+numpy
+pandas
+geopandas
+opencv-python-headless
+rasterio
