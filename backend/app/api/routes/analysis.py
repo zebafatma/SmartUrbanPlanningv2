@@ -10,7 +10,7 @@ from uuid import uuid4
 import cv2
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
-from backend.configs.config import BEST_MODEL_PATH, ROOT_DIR
+from backend.configs.config import INFERENCE_MODEL_PATH, ROOT_DIR
 from backend.prediction.utils import PredictionPipeline
 
 # ==========================================================
@@ -39,7 +39,7 @@ UPLOAD_DIR.mkdir(
 # Prediction Pipeline
 # ==========================================================
 
-pipeline = PredictionPipeline(model_path=BEST_MODEL_PATH)
+pipeline = PredictionPipeline(model_path=INFERENCE_MODEL_PATH)
 
 
 # ==========================================================

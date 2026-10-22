@@ -118,6 +118,14 @@ BEST_MODEL_PATH = CHECKPOINT_DIR / "best_model.keras"
 
 FINAL_MODEL_PATH = CHECKPOINT_DIR / "final_model.keras"
 
+# TensorFlow Lite export of BEST_MODEL_PATH (created by export_tflite.py).
+# The API uses it when present: identical predictions, far less memory.
+TFLITE_MODEL_PATH = CHECKPOINT_DIR / "best_model.tflite"
+
+INFERENCE_MODEL_PATH = (
+    TFLITE_MODEL_PATH if TFLITE_MODEL_PATH.exists() else BEST_MODEL_PATH
+)
+
 
 # ==========================================================
 # INFERENCE
