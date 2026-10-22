@@ -1,0 +1,21 @@
+area_name,ward_name,mapping_type
+Koramangala,Koramangala,exact
+Jayanagar,Jaya Nagar,name_normalized
+Hebbal,Hebbala,name_normalized
+Yeshwanthpur,Yeshwanthpura,name_normalized
+Whitefield,Hagadur,area_group
+Whitefield,Kadugodi,area_group
+Whitefield,Varthur,area_group
+Whitefield,Dodda Nekkundi,area_group
+Whitefield,Marathahalli,area_group
+Electronic City,Singa Sandra,area_group
+Electronic City,Begur,area_group
+Electronic City,Honga Sandra,area_group
+Electronic City,Mangammana Palya,area_group
+Indiranagar,Jeevanbhima Nagar,area_group
+Indiranagar,Jogupalya,area_group
+Indiranagar,Halsoor,area_group
+Indiranagar,Domlur,area_group
+M.G. Road,Halsoor,area_group
+M.G. Road,Shivaji Nagar,area_group
+M.G. Road,Bharathi Nagar,area_group
