@@ -4,7 +4,7 @@ The project deploys as two separate services.
 
 | Part | Folder | Host (suggested) |
 |---|---|---|
-| Backend (FastAPI + model) | repository root | Render web service, 2 GB plan |
+| Backend (FastAPI + model) | repository root | Render web service, free plan |
 | Frontend (React + Vite) | `frontend/` | Vercel (free) |
 
 ## 1. Add the urban datasets
@@ -32,7 +32,10 @@ Either use the included `render.yaml` (New > Blueprint), or create a Web Service
 - Root directory: *(blank — repository root)*
 - Build command: `pip install -r requirements-backend.txt`
 - Start command: `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`
-- Instance: at least 2 GB RAM (the loaded model uses about 810 MB)
+- Instance: Free (512 MB). The API serves `checkpoints/best_model.tflite` with the
+  LiteRT runtime instead of full TensorFlow and peaks at about 414 MB.
+- Free services sleep after 15 minutes without traffic; the first request after
+  that takes about a minute while the service wakes up.
 - Environment: `PYTHON_VERSION=3.11.9`, `FRONTEND_ORIGINS=https://<your-frontend>.vercel.app`
 
 Check `https://<your-backend>.onrender.com/health` returns `{"status":"healthy"}`.
@@ -47,10 +50,21 @@ Check `https://<your-backend>.onrender.com/health` returns `{"status":"healthy"}
 `/recommendations` work. After the first deploy, put the Vercel URL into
 `FRONTEND_ORIGINS` on Render.
 
+## Updating the model
+
+After retraining, regenerate the TFLite file so the API serves the new weights:
+
+```
+python export_tflite.py
+```
+
+If `checkpoints/best_model.tflite` is missing, the API falls back to
+`best_model.keras`, which needs TensorFlow and about 810 MB of memory.
+
 ## Local development
 
 ```
-pip install -r requirements-backend.txt
+pip install -r requirements-backend.txt   # on Windows use: pip install -r requirements.txt
 uvicorn backend.app.main:app --reload          # from the repository root
 cd frontend && npm install && npm run dev      # uses http://127.0.0.1:8000 by default
 ```

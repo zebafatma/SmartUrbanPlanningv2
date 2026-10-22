@@ -9,7 +9,6 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-import tensorflow as tf
 
 from backend.configs.config import IMAGE_HEIGHT, IMAGE_WIDTH
 from backend.data_pipeline.preprocessing import preprocess_image
@@ -32,11 +31,21 @@ class Predictor:
 
     def _load_model(self):
         """
-        Loads the trained Keras model.
+        Loads the trained model.
+
+        - .tflite : TensorFlow Lite model, run with the lightweight LiteRT
+                    runtime (ai-edge-litert). Used for deployment because it
+                    needs a fraction of the memory of full TensorFlow.
+        - .keras  : full Keras model (requires TensorFlow).
         """
 
         if not self.model_path.exists():
             raise FileNotFoundError(f"Model not found:\n{self.model_path}")
+
+        if self.model_path.suffix == ".tflite":
+            return _TFLiteModel(self.model_path)
+
+        import tensorflow as tf
 
         model = tf.keras.models.load_model(
             self.model_path,
@@ -133,3 +142,39 @@ class Predictor:
         )
 
         return original, prediction
+
+
+class _TFLiteModel:
+    """
+    Minimal wrapper giving a TensorFlow Lite model the same
+    predict() interface as a Keras model.
+    """
+
+    def __init__(self, model_path):
+
+        try:
+            from ai_edge_litert.interpreter import Interpreter
+        except ImportError:
+            # Fallback for environments with full TensorFlow
+            # (e.g. Windows, where ai-edge-litert has no wheels).
+            from tensorflow.lite import Interpreter
+
+        self.interpreter = Interpreter(model_path=str(model_path))
+        self.interpreter.allocate_tensors()
+
+        self.input_index = self.interpreter.get_input_details()[0]["index"]
+        self.output_index = self.interpreter.get_output_details()[0]["index"]
+
+    def predict(self, images, verbose=0):
+
+        outputs = []
+
+        for image in images:
+            self.interpreter.set_tensor(
+                self.input_index,
+                np.expand_dims(image, axis=0).astype(np.float32),
+            )
+            self.interpreter.invoke()
+            outputs.append(self.interpreter.get_tensor(self.output_index)[0])
+
+        return np.stack(outputs)

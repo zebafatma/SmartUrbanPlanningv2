@@ -2,7 +2,7 @@ services:
   - type: web
     name: smart-urban-planning-api
     runtime: python
-    plan: standard            # 2 GB RAM; the model needs ~810 MB, 512 MB plans run out of memory
+    plan: free                # 512 MB RAM; the TFLite backend peaks at ~414 MB
     buildCommand: pip install -r requirements-backend.txt
     startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health

@@ -1,11 +1,12 @@
 # Packages needed to run the FastAPI backend (inference + analytics only).
+# The model is served from checkpoints/best_model.tflite with the LiteRT
+# runtime, so full TensorFlow is not needed here.
 # Training dependencies stay in requirements.txt.
 fastapi
 uvicorn[standard]
 python-multipart
 pydantic
-tensorflow-cpu==2.20.0
-keras==3.11.3
+ai-edge-litert
 numpy
 pandas
 geopandas
